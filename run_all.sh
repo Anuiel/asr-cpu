@@ -60,7 +60,6 @@ pip install -e ".[all]"
 
 if [ ! -f "${DATA_DIR}/manifest.json" ]; then
     log "Downloading LibriSpeech test-clean"
-    pip install torchcodec
     python prepare_data.py --output "$DATA_DIR" --split test.clean
 else
     log "Data already prepared at ${DATA_DIR}"

@@ -35,7 +35,11 @@ def main():
 
 def download_librispeech(split: str, wav_dir: str, output_dir: str):
     print(f"Downloading openslr/librispeech_asr split={split} (streaming)...", file=sys.stderr)
+
+    # Force soundfile backend for audio decoding (avoids torchcodec dependency issues)
+    from datasets import Audio
     ds = load_dataset("openslr/librispeech_asr", split=split, streaming=True)
+    ds = ds.cast_column("audio", Audio(decode=True, backend="soundfile"))
 
     manifest = []
     for i, row in enumerate(ds):
