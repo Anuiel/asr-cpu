@@ -1,0 +1,8 @@
+services:
+  benchmark:
+    build: .
+    volumes:
+      - ./data:/data          # prepared dataset (manifest.json + wav/)
+      - ./results:/app/results
+    environment:
+      - OMP_NUM_THREADS=${OMP_NUM_THREADS:-4}
